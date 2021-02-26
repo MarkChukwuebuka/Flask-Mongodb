@@ -12,7 +12,7 @@ app = Flask(__name__)
 # }
 
 #for development
-app.config['MONcd testGODB_SETTINGS'] = {
+app.config['MONGODB_SETTINGS'] = {
     'host' : 'mongodb://localhost/web_api'
 }
 
