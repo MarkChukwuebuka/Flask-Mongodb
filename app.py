@@ -5,7 +5,14 @@ import json
 
 
 app = Flask(__name__)
-app.config['MONGODB_SETTINGS'] = {
+
+#for testing
+# MONGODB_SETTINGS = {
+#     'host': 'mongodb://localhost/web_api'
+# }
+
+#for development
+app.config['MONcd testGODB_SETTINGS'] = {
     'host' : 'mongodb://localhost/web_api'
 }
 
@@ -23,7 +30,7 @@ def create():
     id = audio.uploaded_time
     
     return {'success' : '200 Ok'}
-    # return id
+    
 
 
 @app.route('/<audiotype>/')
@@ -52,7 +59,7 @@ def get_audio(audiotype, id):
     else:
         audio = "Invalid Audio Type"
     
-    # return Response(mimetype="application/json", status=200)
+
     return {'success' : '200 Ok'}
 
 
