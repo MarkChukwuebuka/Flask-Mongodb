@@ -78,7 +78,7 @@ def update_audio(audiotype, id):
 def delete_audio(audiotype, id):
     
     if audiotype == "1":
-        audio = Song.objects.get(id=id).delete()
+        audio = Song.objects.get(Id=id).delete()
     elif audiotype == "2":
         audio = Podcast.objects.get(Id=id).delete()
     elif audiotype  == "3":
