@@ -1,12 +1,16 @@
 from .db import db
 import datetime
 
+class MyParticipantsField(db.ListField):
 
 
-# def val_list(x):
-#     for i in x:
-#         if len(i) > 100:
-#             raise ValidationError("Participant can't contain more than 100 characters")
+    def validate(self, x):
+        super(MyParticipantsField, self).validate(x)
+        x = list(x)
+        for i in x:
+            if len(i) > 100:
+                self.error("Participant can't contain more than 100 characters")
+        
 
 
 class MyDateTimeField(db.DateTimeField):
@@ -34,18 +38,18 @@ class Song(db.Document):
 
 class Podcast(db.Document):
 
-    id = db.IntField(required = True, unique=True)
+    Id = db.IntField(required = True, unique=True)
     name = db.StringField(required = True, max_length=100)
     duration = db.IntField(required = True, min_value = 1)
     uploaded_time = MyDateTimeField(required = True)
     host = db.StringField(required = True, max_length=100)
-    participants = db.ListField(db.StringField())
+    participants = MyParticipantsField()
     audiotype = db.StringField(max_length=10, choices=audiotype, required = True)
 
 
 class AudioBook(db.Document):
 
-    id = db.IntField(required = True, unique=True)
+    Id = db.IntField(required = True, unique=True)
     title = db.StringField(required = True, max_length=100)
     author = db.StringField(required = True, max_length=100)
     narrator = db.StringField(required = True, max_length=100)
