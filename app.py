@@ -66,7 +66,7 @@ def get_audio(audiotype, id):
     
 @app.route('/<audiotype>/<id>/', methods=['PUT'])
 def update_audio(audiotype, id):
-    body = request.get_json()
+    body = request.get_json(force=True)
 
     if audiotype == "1":
         audio = Song.objects.get(Id=id).update(**body)

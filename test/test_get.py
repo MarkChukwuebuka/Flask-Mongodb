@@ -9,5 +9,5 @@ def test_get_audiotype(app, client):
 
 def test_get_audio(app, client):
     del app
-    response = client.get('/1/13/')
+    response = client.get('/1/47/')
     assert response.status_code == 200

@@ -1,5 +1,6 @@
 from .db import db
 import datetime
+import pytz
 
 class MyParticipantsField(db.ListField):
 
@@ -10,15 +11,20 @@ class MyParticipantsField(db.ListField):
         for i in x:
             if len(i) > 100:
                 self.error("Participant can't contain more than 100 characters")
-        
 
+  
+utc=pytz.UTC
 
 class MyDateTimeField(db.DateTimeField):
 
     def validate(self, value):
         super(MyDateTimeField, self).validate(value)
-        if datetime.datetime.strptime(value, "%a, %d %b %Y %H:%M:%S %Z") < datetime.datetime.now():
-            self.error("Your DateTime cannot be in the past")
+        if type(value) == str:
+            if datetime.datetime.strptime(value, "%d-%m-%Y %H:%M:%S") < datetime.datetime.utcnow():
+                self.error("Your DateTime cannot be in the past")
+        else:
+             if value < datetime.datetime.now(value.tzinfo):
+                self.error("Your DateTime cannot be in the past")
 
 
 
